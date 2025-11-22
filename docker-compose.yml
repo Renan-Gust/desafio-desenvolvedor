@@ -1,0 +1,23 @@
+services:
+  app:
+    build: .
+    image: php:8.3-fpm
+    container_name: desafio_app
+    working_dir: /var/www/html
+    volumes:
+      - ./src:/var/www/html
+    ports:
+      - "8000:8000"
+    command: php artisan serve --host=0.0.0.0 --port=8000
+  db:
+    image: mysql:8.1
+    container_name: desafio_db
+    environment:
+      MYSQL_DATABASE: desafio
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3307:3306"
+    volumes:
+      - db:/var/lib/mysql
+volumes:
+  db:
