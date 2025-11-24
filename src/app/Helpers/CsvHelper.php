@@ -47,7 +47,6 @@ class CsvHelper
             'text/plain' => 'csv',
             'text/csv' => 'csv',
             'application/csv' => 'csv',
-            'application/vnd.ms-excel' => 'xls',
             'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' => 'xlsx',
         ];
 

@@ -11,7 +11,7 @@ class UploadController extends Controller
     public function index(Request $request, CsvService $service)
     {
         $request->validate([
-            'file' => 'required|file|mimes:xlsx,xls,csv'
+            'file' => 'required|file|mimes:xlsx,csv'
         ]);
 
         $file = $request->file('file');
