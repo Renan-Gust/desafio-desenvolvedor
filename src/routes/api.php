@@ -10,5 +10,5 @@ Route::group(['prefix' => '/user'], function () {
 });
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
-    Route::get('/upload', [UploadController::class, 'index'])->name('upload.index');
+    Route::post('/upload', [UploadController::class, 'index'])->name('upload.index');
 });
