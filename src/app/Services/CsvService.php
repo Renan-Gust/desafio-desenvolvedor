@@ -110,11 +110,11 @@ class CsvService
         return [
             'upload_id'   => $uploadId,
             'RptDt'       => CsvHelper::getValue($cells, $map, 'RptDt'),
-            'TckrSymb'    => CsvHelper::convertToUTF8($cells[$map['TckrSymb']] ?? null),
-            'MktNm'       => CsvHelper::convertToUTF8($cells[$map['MktNm']] ?? null),
-            'SctyCtgyNm'  => CsvHelper::convertToUTF8($cells[$map['SctyCtgyNm']] ?? null),
-            'ISIN'        => CsvHelper::convertToUTF8($cells[$map['ISIN']] ?? null),
-            'CrpnNm'      => CsvHelper::convertToUTF8($cells[$map['CrpnNm']] ?? null),
+            'TckrSymb'    => CsvHelper::convertToUTF8(CsvHelper::getValue($cells, $map, 'TckrSymb')),
+            'MktNm'       => CsvHelper::convertToUTF8(CsvHelper::getValue($cells, $map, 'MktNm')),
+            'SctyCtgyNm'  => CsvHelper::convertToUTF8(CsvHelper::getValue($cells, $map, 'SctyCtgyNm')),
+            'ISIN'        => CsvHelper::convertToUTF8(CsvHelper::getValue($cells, $map, 'ISIN')),
+            'CrpnNm'      => CsvHelper::convertToUTF8(CsvHelper::getValue($cells, $map, 'CrpnNm')),
             'created_at'  => now(),
             'updated_at'  => now(),
         ];
