@@ -15,7 +15,7 @@ namespace App\Swagger\Docs;
  *         in="query",
  *         required=false,
  *         description="Busca pelo símbolo (ticker)",
- *         @OA\Schema(type="string", example="AMZO34")
+ *         @OA\Schema(type="string", example="")
  *     ),
  *
  *     @OA\Parameter(
@@ -23,7 +23,7 @@ namespace App\Swagger\Docs;
  *         in="query",
  *         required=false,
  *         description="Busca pela data de referência",
- *         @OA\Schema(type="string", format="date", example="2024-08-22")
+ *         @OA\Schema(type="string", format="date", example="")
  *     ),
  *
  *     @OA\Response(

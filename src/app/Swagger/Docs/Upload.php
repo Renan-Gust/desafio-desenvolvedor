@@ -30,7 +30,11 @@ namespace App\Swagger\Docs;
  *         description="Arquivo enviado com sucesso.",
  *         @OA\JsonContent(
  *             @OA\Property(property="success", type="boolean", example=true),
- *             @OA\Property(property="message", type="string", example="File sent successfully.")
+ *             @OA\Property(property="message", type="string", example="File sent successfully."),
+ *             @OA\Property(
+ *                  property="data",
+ *                  ref="#/components/schemas/UploadResource"
+ *             )
  *         )
  *     ),
  *
@@ -59,7 +63,7 @@ namespace App\Swagger\Docs;
  *         in="query",
  *         required=false,
  *         description="Filtrar pelo nome do arquivo",
- *         @OA\Schema(type="string", example="InstrumentsConsolidatedFile_20251027_1")
+ *         @OA\Schema(type="string", example="")
  *     ),
  *
  *     @OA\Parameter(
@@ -67,7 +71,7 @@ namespace App\Swagger\Docs;
  *         in="query",
  *         required=false,
  *         description="Filtrar pela data de referência",
- *         @OA\Schema(type="string", format="date", example="2025-10-27")
+ *         @OA\Schema(type="string", format="date", example="")
  *     ),
  *
  *     @OA\Response(

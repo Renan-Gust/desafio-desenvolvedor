@@ -185,7 +185,7 @@
                         "required": false,
                         "schema": {
                             "type": "string",
-                            "example": "AMZO34"
+                            "example": ""
                         }
                     },
                     {
@@ -196,7 +196,7 @@
                         "schema": {
                             "type": "string",
                             "format": "date",
-                            "example": "2024-08-22"
+                            "example": ""
                         }
                     }
                 ],
@@ -264,7 +264,7 @@
                         "required": false,
                         "schema": {
                             "type": "string",
-                            "example": "InstrumentsConsolidatedFile_20251027_1"
+                            "example": ""
                         }
                     },
                     {
@@ -275,7 +275,7 @@
                         "schema": {
                             "type": "string",
                             "format": "date",
-                            "example": "2025-10-27"
+                            "example": ""
                         }
                     }
                 ],
@@ -366,6 +366,9 @@
                                         "message": {
                                             "type": "string",
                                             "example": "File sent successfully."
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/UploadResource"
                                         }
                                     },
                                     "type": "object"
