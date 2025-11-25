@@ -1,0 +1,619 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API - Desafio Oliveira Trust",
+        "description": "Documentação da API de upload e consulta de arquivos CSV/XLSX.",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "/api",
+            "description": "API base"
+        }
+    ],
+    "paths": {
+        "/user/create": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Cria um novo usuário",
+                "description": "Registra um usuário e retorna um token de autenticação.",
+                "operationId": "2a525fc536e4368f982f13ea011b6f33",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Renan"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "renan@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "123456"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Usuário criado com sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AuthToken"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Erro de validação.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationError"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error500"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/user/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Realiza login",
+                "description": "Valida credenciais e retorna um token de autenticação.",
+                "operationId": "ae1c8d854d965f2c9845cfd74d186f71",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "renan@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "123456"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Login bem-sucedido.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AuthToken"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Credenciais inválidas.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": "false"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Invalid credentials."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Erro de validação.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationError"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error500"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/upload/content": {
+            "get": {
+                "tags": [
+                    "Content"
+                ],
+                "summary": "Busca conteúdo dos arquivos importados",
+                "description": "Retorna registros importados dos arquivos CSV/XLSX",
+                "operationId": "a2ad953041fc6007ac5561acc324ad46",
+                "parameters": [
+                    {
+                        "name": "TckrSymb",
+                        "in": "query",
+                        "description": "Busca pelo símbolo (ticker)",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "AMZO34"
+                        }
+                    },
+                    {
+                        "name": "RptDt",
+                        "in": "query",
+                        "description": "Busca pela data de referência",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "format": "date",
+                            "example": "2024-08-22"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Resultados encontrados.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/ContentPagination"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Erro de validação.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationError"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error500"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/upload": {
+            "get": {
+                "tags": [
+                    "Upload"
+                ],
+                "summary": "Lista uploads realizados",
+                "description": "Retorna lista paginada de uploads.",
+                "operationId": "7b867a9e440344580b7baf53de4af204",
+                "parameters": [
+                    {
+                        "name": "filename",
+                        "in": "query",
+                        "description": "Filtrar pelo nome do arquivo",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "InstrumentsConsolidatedFile_20251027_1"
+                        }
+                    },
+                    {
+                        "name": "ref_date",
+                        "in": "query",
+                        "description": "Filtrar pela data de referência",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "format": "date",
+                            "example": "2025-10-27"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de uploads retornada com sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/UploadPagination"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Erro de validação.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationError"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error500"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Upload"
+                ],
+                "summary": "Envia um arquivo CSV ou XLSX para processamento",
+                "operationId": "3a5de0fe0a115bbc77648a992fa69bb2",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "file"
+                                ],
+                                "properties": {
+                                    "file": {
+                                        "description": "Arquivo CSV ou XLSX.",
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Arquivo enviado com sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "File sent successfully."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Erro de validação.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationError"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error500"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "ValidationError": {
+                "description": "Resposta padrão de erro de validação do Laravel.",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "example": "The given data was invalid."
+                    },
+                    "errors": {
+                        "description": "Lista de erros por campo",
+                        "type": "object",
+                        "additionalProperties": {
+                            "schema": "Schemas",
+                            "type": "array",
+                            "items": {
+                                "type": "string",
+                                "example": "The field is required."
+                            }
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "Schemas": {
+                "type": "array",
+                "items": {
+                    "type": "string",
+                    "example": "The field is required."
+                }
+            },
+            "Error500": {
+                "description": "Internal server error.",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "example": "Internal server error."
+                    }
+                },
+                "type": "object"
+            },
+            "UploadPagination": {
+                "description": "Estrutura padrão de paginação do Laravel",
+                "properties": {
+                    "current_page": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/UploadResource"
+                        }
+                    },
+                    "from": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "last_page": {
+                        "type": "integer",
+                        "example": 5
+                    },
+                    "per_page": {
+                        "type": "integer",
+                        "example": 20
+                    },
+                    "to": {
+                        "type": "integer",
+                        "example": 20
+                    },
+                    "total": {
+                        "type": "integer",
+                        "example": 100
+                    }
+                },
+                "type": "object"
+            },
+            "ContentPagination": {
+                "description": "Estrutura padrão de paginação do Laravel",
+                "properties": {
+                    "current_page": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ContentResource"
+                        }
+                    },
+                    "from": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "last_page": {
+                        "type": "integer",
+                        "example": 10
+                    },
+                    "per_page": {
+                        "type": "integer",
+                        "example": 100
+                    },
+                    "to": {
+                        "type": "integer",
+                        "example": 100
+                    },
+                    "total": {
+                        "type": "integer",
+                        "example": 50000
+                    }
+                },
+                "type": "object"
+            },
+            "UploadResource": {
+                "description": "Representação de um upload de arquivo",
+                "properties": {
+                    "filename": {
+                        "type": "string",
+                        "example": "InstrumentsConsolidatedFile_20251027_1.csv"
+                    },
+                    "ref_date": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2025-10-27",
+                        "nullable": true
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-11-24 12:34:56"
+                    }
+                },
+                "type": "object"
+            },
+            "ContentResource": {
+                "description": "Linha de conteúdo importada do arquivo (CSV/XLSX)",
+                "properties": {
+                    "RptDt": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2024-08-22"
+                    },
+                    "TckrSymb": {
+                        "type": "string",
+                        "example": "AMZO34"
+                    },
+                    "MktNm": {
+                        "type": "string",
+                        "example": "EQUITY-CASH",
+                        "nullable": true
+                    },
+                    "SctyCtgyNm": {
+                        "type": "string",
+                        "example": "BDR",
+                        "nullable": true
+                    },
+                    "ISIN": {
+                        "type": "string",
+                        "example": "BRAMZOBDR002",
+                        "nullable": true
+                    },
+                    "CrpnNm": {
+                        "type": "string",
+                        "example": "AMAZON.COM, INC",
+                        "nullable": true
+                    },
+                    "filename": {
+                        "type": "string",
+                        "example": "InstrumentsConsolidatedFile_20251027_1.csv"
+                    }
+                },
+                "type": "object"
+            },
+            "AuthToken": {
+                "description": "Resposta com token de autenticação Sanctum.",
+                "properties": {
+                    "success": {
+                        "type": "boolean",
+                        "example": true
+                    },
+                    "token": {
+                        "type": "string",
+                        "example": "1|Jd92838dj29d9d9dsj2j92d9d2d92d92d92"
+                    },
+                    "type": {
+                        "type": "string",
+                        "example": "Bearer"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Auth",
+            "description": "Auth"
+        },
+        {
+            "name": "Content",
+            "description": "Content"
+        },
+        {
+            "name": "Upload",
+            "description": "Upload"
+        }
+    ]
+}
