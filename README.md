@@ -1,4 +1,4 @@
-# 🏗️ Desafio Oliveira Trust — API de Upload e Consulta (CSV/XLSX)
+# 🏗️ Desafio Oliveira Trust
 
 Este projeto consiste em uma API Laravel responsável por:
 
@@ -32,7 +32,7 @@ cd desafio-desenvolvedor
 ## 2️⃣ Suba os containers Docker
 
 ```bash
-docker compose up -d
+docker compose up -d --build
 ```
 
 ## 3️⃣ Entre no container do projeto
