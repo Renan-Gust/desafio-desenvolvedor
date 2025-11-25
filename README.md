@@ -1,52 +1,62 @@
-<p>
-    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQIAOtqQ5is5vwbcEn0ZahZfMxz1QIeAYtFfnLdkCXu1sqAGbnX" width="300">
- </p>
- 
-### A Oliveira Trust:
-A Oliveira Trust é uma das maiores empresas do setor Financeiro com muito orgulho, desde 1991, realizamos as maiores transações do mercado de Títulos e Valores Mobiliários.
+# 🏗️ Desafio Oliveira Trust — API de Upload e Consulta (CSV/XLSX)
 
-Somos uma empresa em que valorizamos o nosso colaborador em primeiro lugar, sempre! Alinhando isso com a nossa missão "Promover a satisfação dos nossos clientes e o desenvolvimento pessoal e profissional da nossa equipe", estamos construindo times excepcionais em Tecnologia, Comercial, Engenharia de Software, Produto, Financeiro, Jurídico e Data Science.
+Este projeto consiste em uma API Laravel responsável por:
 
-Estamos buscando uma pessoa que seja movida a desafios, que saiba trabalhar em equipe e queira revolucionar o mercado financeiro!
+- Autenticação via Sanctum
+- Upload de arquivos CSV/XLSX
+- Processamento de arquivos (OpenSpout)
+- Importação de milhares de linhas com chunk de 1.000
+- Consultas de uploads e conteúdos
+- Documentação via Swagger (L5-Swagger)
 
-Front-end? Back-end? Full Stack? Analista de dados? Queremos conhecer gente boa, que goste de colocar a mão na massa, seja responsável e queira fazer história!
+# ✅ Tecnologias Utilizadas
 
-#### O que você precisa saber para entrar no nosso time: 🚀
-- Trabalhar com frameworks (Laravel, Lumen, Yii, Cake, Symfony ou outros...)
-- Banco de dados relacional (MySql, MariaDB)
-- Trabalhar com microsserviços
+- **PHP 8.3 (Docker)**
+- **Laravel 12**
+- **MySQL 8 (Docker)**
+- **Laravel Sanctum**
+- **OpenSpout**
+- **L5-Swagger**
 
-#### O que seria legal você saber também: 🚀
-- Conhecimento em banco de dados não relacional;
-- Conhecimento em docker;
-- Conhecimento nos serviços da AWS (RDS, DynamoDB, DocumentDB, Elasticsearch);
-- Conhecimento em metodologias ágeis (Scrum/Kanban);
+---
 
-#### Ao entrar nessa jornada com o nosso time, você vai: 🚀
-- Trabalhar em uma equipe de tecnologia, em um ambiente leve e descontraído e vivenciar a experiência de mudar o mercado financeiro;
-- Dress code da forma que você se sentir mais confortável;
-- Flexibilidade para home office e horários;
-- Acesso a cursos patrocinados pela empresa;
+# 🚀 Como rodar o projeto
 
-#### Benefícios 🚀
-- Salário compatível com o mercado;
-- Vale Refeição (CAJU);
-- Vale Alimentação (CAJU);
-- Vale Transporte ou Vale Combustível (CAJU);
-- Plano de Saúde e Odontológico;
-- Seguro de vida;
-- PLR Semestral;
-- Horário Flexível;
-- Parcerias em farmácias
+# 1️⃣ Clone o repositório
 
-#### Local: 🚀
-Barra da Tijuca, Rio de Janeiro, RJ
+```bash
+git clone https://github.com/Renan-Gust/desafio-desenvolvedor.git
+cd desafio-desenvolvedor
+```
 
-#### Conheça mais sobre nós! :sunglasses:
-- Website (https://www.oliveiratrust.com.br/)
-- LinkedIn (https://www.linkedin.com/company/oliveiratrust/)
+## 2️⃣ Suba os containers Docker
 
-A Oliveira Trust acredita na inclusão e na promoção da diversidade em todas as suas formas. Temos como valores o respeito e valorização das pessoas e combatemos qualquer tipo de discriminação. Incentivamos a todos que se identifiquem com o perfil e requisitos das vagas disponíveis que candidatem, sem qualquer distinção.
+```bash
+docker compose up -d
+```
 
-## Pronto para o desafio? 🚀🚀🚀🚀
-https://github.com/Oliveira-Trust/desafio-desenvolvedor/blob/master/vaga3.md
+## 3️⃣ Instale dependências via Docker
+
+```bash
+docker exec -it desafio_app bash
+composer install
+```
+
+## 4️⃣ Crie e configure .env
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+
+## 5️⃣ Rode as migrations
+```bash
+php artisan migrate
+```
+
+## 6️⃣ Ajuste as permissões
+```bash
+docker exec -it desafio_app
+chmod -R 777 storage bootstrap/cache
+```
+
+O projeto estará disponível no seu browser pelo endereço: http://localhost:8000
