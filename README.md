@@ -40,24 +40,19 @@ docker compose up -d --build
 ```bash
 docker exec -it desafio_app bash
 ```
-## 4️⃣ Instale as dependências
 
-```bash
-composer install
-```
-
-## 5️⃣ Crie e configure o .env
+## 4️⃣ Crie e configure o .env
 ```bash
 cp .env.example .env
 php artisan key:generate
 ```
 
-## 6️⃣ Rode as migrations
+## 5️⃣ Rode as migrations
 ```bash
 php artisan migrate
 ```
 
-## 7️⃣ Ajuste as permissões
+## 6️⃣ Ajuste as permissões
 ```bash
 chmod -R 777 storage bootstrap/cache
 ```
