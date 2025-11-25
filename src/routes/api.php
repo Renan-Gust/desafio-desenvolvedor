@@ -10,5 +10,9 @@ Route::group(['prefix' => '/user'], function () {
 });
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
-    Route::post('/upload', [UploadController::class, 'index'])->name('upload.index');
+    Route::group(['prefix' => '/upload'], function () {
+        Route::post('/', [UploadController::class, 'store'])->name('upload.store');
+        Route::get('/', [UploadController::class, 'searchUploads'])->name('upload.search');
+        Route::get('/content', [UploadController::class, 'searchContents'])->name('upload.search.content');
+    });
 });
