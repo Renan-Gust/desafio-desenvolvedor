@@ -12,8 +12,8 @@ Este projeto consiste em uma API Laravel responsável por:
 # ✅ Tecnologias Utilizadas
 
 - **PHP 8.3 (Docker)**
-- **Laravel 12**
 - **MySQL 8 (Docker)**
+- **Laravel 12**
 - **Laravel Sanctum**
 - **OpenSpout**
 - **L5-Swagger**
@@ -22,7 +22,7 @@ Este projeto consiste em uma API Laravel responsável por:
 
 # 🚀 Como rodar o projeto
 
-# 1️⃣ Clone o repositório
+## 1️⃣ Clone o repositório
 
 ```bash
 git clone https://github.com/Renan-Gust/desafio-desenvolvedor.git
@@ -35,27 +35,30 @@ cd desafio-desenvolvedor
 docker compose up -d
 ```
 
-## 3️⃣ Instale dependências via Docker
+## 3️⃣ Entre no container do projeto
 
 ```bash
 docker exec -it desafio_app bash
+```
+## 4️⃣ Instale as dependências
+
+```bash
 composer install
 ```
 
-## 4️⃣ Crie e configure .env
+## 5️⃣ Crie e configure o .env
 ```bash
 cp .env.example .env
 php artisan key:generate
 ```
 
-## 5️⃣ Rode as migrations
+## 6️⃣ Rode as migrations
 ```bash
 php artisan migrate
 ```
 
-## 6️⃣ Ajuste as permissões
+## 7️⃣ Ajuste as permissões
 ```bash
-docker exec -it desafio_app
 chmod -R 777 storage bootstrap/cache
 ```
 
