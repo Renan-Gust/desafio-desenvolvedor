@@ -20,7 +20,7 @@ class UploadController extends Controller
         $file = $request->file('file');
 
         $upload = $service->processUpload($file);
-        return UploadResource::collection($upload)->additional(['success' => true, 'message' => 'File sent successfully.']);
+        return (new UploadResource($upload))->additional(['success' => true, 'message' => 'File sent successfully.']);
     }
 
     public function searchUploads(Request $request, UploadService $service)
