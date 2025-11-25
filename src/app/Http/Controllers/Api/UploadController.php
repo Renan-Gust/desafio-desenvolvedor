@@ -13,9 +13,9 @@ class UploadController extends Controller
 {
     public function store(Request $request, CsvService $service)
     {
-        // $request->validate([
-        //     'file' => 'required|file|mimes:xlsx,csv'
-        // ]);
+        $request->validate([
+            'file' => 'required|file|mimes:xlsx,csv'
+        ]);
 
         $file = $request->file('file');
 
